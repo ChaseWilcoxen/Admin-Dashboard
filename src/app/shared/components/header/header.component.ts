@@ -11,9 +11,15 @@ export class HeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
   toggleSidebar(event){
     this.toggleSideBarForMe.emit()
+    setTimeout(()=> {
+      window.dispatchEvent(
+        new Event('resize')
+      )
+     }, 300)
   }
 }

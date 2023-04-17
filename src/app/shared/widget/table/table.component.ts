@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { DashboardService } from '../dashboard.service';
+import { Component, Input, OnInit } from '@angular/core';
+
 export interface PeriodicElement {
   name: string;
   position: number;
   weight: number;
   symbol: string;
 }
+
 const ELEMENT_DATA: PeriodicElement[] = [
   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
@@ -18,31 +19,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
-@Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
-})
-export class DashboardComponent implements OnInit {
-  bigChart = [];
-  cards = [];
-  pieChart =[];
 
+@Component({
+  selector: 'app-widget-table',
+  templateUrl: './table.component.html',
+  styleUrls: ['./table.component.scss']
+})
+export class TableComponent implements OnInit {
+  @Input() data =[];
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
+  constructor() { }
 
-  constructor(private dashboardService : DashboardService) { }
+  ngOnInit() {
 
-  ngOnInit(): void {
-    this.bigChart = this.dashboardService.bigChart()  
-    this.cards = this.dashboardService.cards()
-    this.pieChart = this.dashboardService.pieChart() 
 
-    setTimeout(()=> {
-      window.dispatchEvent(
-        new Event('resize')
-      )
-     }, 300)
 
   }
 
